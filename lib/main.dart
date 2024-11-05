@@ -1,5 +1,6 @@
 import 'package:didi_clone/app_routes.dart';
 import 'package:didi_clone/components/sidebar.dart';
+import 'package:didi_clone/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,63 +8,24 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter Demo',
-      home: MyHome(),
-      // initialRoute: AppRoutes.login,
-      onGenerateRoute: AppRoutes.onGenerateRoute,
-    );
-  }
-}
-
-class MyHome extends StatefulWidget {
-  const MyHome({super.key});
-
-  @override
-  State<MyHome> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHome> {
-  int _counter = 0;
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Sidebar(),
-      appBar: AppBar(
-        title: const Text('Flutter Demo Home Page'),
+    return MaterialApp(
+      title: 'Flutter App',
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
       ),
-      body: Center(
-        child: Container(
-
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ],
-          ),
-        )
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      initialRoute: '/',  // Set the initial route as '/'
+      onGenerateRoute: AppRoutes.onGenerateRoute,  // Use the routes defined in AppRoutes
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("My Home Page"),
+          centerTitle: true,
+          backgroundColor: Colors.deepPurple,
+        ),
+        body:  HomePage(),
+        drawer:  Sidebar(),  // Add a drawer to the app
       ),
     );
   }

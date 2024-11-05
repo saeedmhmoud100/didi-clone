@@ -4,11 +4,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("My Home Page"),
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple,
-      ),
+      appBar: null,
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(
