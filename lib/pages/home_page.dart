@@ -1,6 +1,6 @@
 
 
-import 'package:didi_clone/pages/my_profile_page.dart';
+import 'package:didi_clone/pages/MyProfile/my_profile_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {

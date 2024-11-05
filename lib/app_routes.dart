@@ -4,7 +4,7 @@ import 'package:didi_clone/pages/help_hage.dart';
 import 'package:didi_clone/pages/invite_friends_page.dart';
 import 'package:didi_clone/pages/login_page.dart';
 import 'package:didi_clone/pages/messages_page.dart';
-import 'package:didi_clone/pages/my_profile_page.dart';
+import 'package:didi_clone/pages/MyProfile/my_profile_page.dart';
 import 'package:didi_clone/pages/my_trips_page.dart';
 import 'package:didi_clone/pages/payment_page.dart';
 import 'package:didi_clone/pages/promotions_page.dart';

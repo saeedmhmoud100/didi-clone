@@ -8,7 +8,7 @@ class Sidebar extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          UserAccountsDrawerHeader(
+          const UserAccountsDrawerHeader(
               accountName: Text("accountName"),
               accountEmail: Text("accountEmail"),
               currentAccountPicture: CircleAvatar(
