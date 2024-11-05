@@ -1,6 +1,7 @@
 import 'package:didi_clone/pages/drive_with_us_page.dart';
 import 'package:didi_clone/pages/favorite_places_page.dart';
 import 'package:didi_clone/pages/help_page.dart';
+import 'package:didi_clone/pages/home_page.dart';
 import 'package:didi_clone/pages/invite_friends_page.dart';
 import 'package:didi_clone/pages/login_page.dart';
 import 'package:didi_clone/pages/messages_page.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/material.dart';
 
 
 class AppRoutes{
+  static const String home = '/';
   static const String login = '/login';
   static const String signUp = '/signUp';
   static const String payment = '/payment';
@@ -32,6 +34,8 @@ class AppRoutes{
 
   static Route<dynamic> onGenerateRoute(RouteSettings paths) {
     switch (paths.name) {
+      case home:
+        return MaterialPageRoute(builder: (_) => HomePage());
       case login:
         return MaterialPageRoute(builder: (_) => LoginPage());
       case signUp:
