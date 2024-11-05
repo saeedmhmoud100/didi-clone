@@ -9,12 +9,14 @@ import 'package:didi_clone/pages/my_trips_page.dart';
 import 'package:didi_clone/pages/payment_page.dart';
 import 'package:didi_clone/pages/promotions_page.dart';
 import 'package:didi_clone/pages/scan_page.dart';
+import 'package:didi_clone/pages/signup_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
 class AppRoutes{
   static const String login = '/login';
+  static const String signUp = '/signUp';
   static const String payment = '/payment';
   static const String help = '/help';
   static const String messages = '/messages';
@@ -31,6 +33,8 @@ class AppRoutes{
     switch (settings.name) {
       case login:
         return MaterialPageRoute(builder: (_) => LoginPage());
+      case signUp:
+        return MaterialPageRoute(builder: (_) => SignupPage());
       case payment:
         return MaterialPageRoute(builder: (_) => PaymentPage());
       case help:

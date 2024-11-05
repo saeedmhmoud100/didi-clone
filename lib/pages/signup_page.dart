@@ -2,16 +2,18 @@ import 'package:didi_clone/app_routes.dart';
 import 'package:didi_clone/components/sidebar.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class SignupPage extends StatelessWidget {
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Sidebar(),
       // appBar: AppBar(
-      //   title: Text('Login Page'),
+      //   title: Text('Signup Page'),
       //   leading: IconButton(
       //     icon: Icon(Icons.menu),
       //     onPressed: () {
@@ -27,9 +29,9 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Logo or App Name
+              // Header
               Text(
-                "Welcome Back!",
+                "Create an Account",
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
@@ -39,7 +41,7 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                "Login to your account",
+                "Join us and enjoy our services",
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.grey[600],
@@ -47,6 +49,19 @@ class LoginPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 40),
+
+              // Name Field
+              TextField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  labelText: 'Full Name',
+                  prefixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
 
               // Email Field
               TextField(
@@ -74,29 +89,28 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 20),
 
-              // Forgot Password
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    // Add Forgot Password logic here
-                  },
-                  child: Text(
-                    'Forgot Password?',
-                    style: TextStyle(color: Colors.deepPurple),
+              // Confirm Password Field
+              TextField(
+                controller: confirmPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Confirm Password',
+                  prefixIcon: Icon(Icons.lock_outline),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 30),
 
-              // Login Button
+              // Sign Up Button
               ElevatedButton(
                 onPressed: () {
-                  // Add login functionality here
+                  // Add signup functionality here
                 },
-                child: Text("Login"),
+                child: Text("Sign Up"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple,
                   padding: EdgeInsets.symmetric(vertical: 15),
@@ -106,24 +120,23 @@ class LoginPage extends StatelessWidget {
                   textStyle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-
                   ),
-                  foregroundColor: Colors.white,
+                foregroundColor: Colors.white,
                 ),
               ),
               SizedBox(height: 20),
 
-              // Sign Up Option
+              // Already have an account? Login
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an account?"),
+                  Text("Already have an account?"),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, AppRoutes.signUp);
+                      Navigator.pushNamed(context, AppRoutes.login);
                     },
                     child: Text(
-                      'Sign Up',
+                      'Login',
                       style: TextStyle(color: Colors.deepPurple),
                     ),
                   ),
