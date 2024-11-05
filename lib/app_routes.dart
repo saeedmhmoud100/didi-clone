@@ -1,6 +1,6 @@
 import 'package:didi_clone/pages/drive_with_us_page.dart';
 import 'package:didi_clone/pages/favorite_places_page.dart';
-import 'package:didi_clone/pages/help_hage.dart';
+import 'package:didi_clone/pages/help_page.dart';
 import 'package:didi_clone/pages/invite_friends_page.dart';
 import 'package:didi_clone/pages/login_page.dart';
 import 'package:didi_clone/pages/messages_page.dart';
