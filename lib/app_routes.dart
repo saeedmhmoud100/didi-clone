@@ -9,6 +9,7 @@ import 'package:didi_clone/pages/my_trips_page.dart';
 import 'package:didi_clone/pages/payment_page.dart';
 import 'package:didi_clone/pages/promotions_page.dart';
 import 'package:didi_clone/pages/scan_page.dart';
+import 'package:didi_clone/pages/settings_page.dart';
 import 'package:didi_clone/pages/signup_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +30,8 @@ class AppRoutes{
   static const String profile = '/profile';
   static const String myTrips = '/my-trips';
 
-  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
+  static Route<dynamic> onGenerateRoute(RouteSettings paths) {
+    switch (paths.name) {
       case login:
         return MaterialPageRoute(builder: (_) => LoginPage());
       case signUp:
@@ -41,6 +42,8 @@ class AppRoutes{
         return MaterialPageRoute(builder: (_) => HelpPage());
       case messages:
         return MaterialPageRoute(builder: (_) => MessagesPage());
+      case settings:
+        return MaterialPageRoute(builder: (_) => SettingsPage());
       case inviteFriends:
         return MaterialPageRoute(builder: (_) => InviteFriendsPage());
       case driveWithUs:

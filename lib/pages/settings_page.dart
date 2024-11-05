@@ -1,17 +1,120 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+class SettingsPage extends StatefulWidget {
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  bool _notificationsEnabled = true;
+  bool _darkMode = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: Text("Settings"),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
       ),
-      body: const Center(
-        child: Text('Settings Page'),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Section: Profile Settings
+            Text(
+              "Profile Settings",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            _buildSettingOption(
+              title: "Change Profile Picture",
+              icon: Icons.account_circle,
+              onTap: () {
+                // Add functionality to change profile picture
+              },
+            ),
+            _buildSettingOption(
+              title: "Edit Profile Information",
+              icon: Icons.edit,
+              onTap: () {
+                // Add functionality to edit profile
+              },
+            ),
+            SizedBox(height: 20),
+
+            // Section: Preferences
+            Text(
+              "Preferences",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            _buildSwitchOption(
+              title: "Enable Notifications",
+              value: _notificationsEnabled,
+              onChanged: (value) {
+                setState(() {
+                  _notificationsEnabled = value;
+                });
+              },
+            ),
+            _buildSwitchOption(
+              title: "Dark Mode",
+              value: _darkMode,
+              onChanged: (value) {
+                setState(() {
+                  _darkMode = value;
+                });
+              },
+            ),
+            SizedBox(height: 20),
+
+            // Section: Account Settings
+            Text(
+              "Account Settings",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            _buildSettingOption(
+              title: "Change Password",
+              icon: Icons.lock,
+              onTap: () {
+                // Add functionality to change password
+              },
+            ),
+            _buildSettingOption(
+              title: "Logout",
+              icon: Icons.exit_to_app,
+              onTap: () {
+                // Add functionality to logout
+              },
+            ),
+            SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Widget to build individual setting options (text with an icon)
+  Widget _buildSettingOption({required String title, required IconData icon, required VoidCallback onTap}) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.deepPurple),
+      title: Text(title, style: TextStyle(fontSize: 18)),
+      trailing: Icon(Icons.arrow_forward_ios, size: 16),
+      onTap: onTap,
+    );
+  }
+
+  // Widget to build a switch option (enable/disable setting)
+  Widget _buildSwitchOption({required String title, required bool value, required ValueChanged<bool> onChanged}) {
+    return ListTile(
+      title: Text(title, style: TextStyle(fontSize: 18)),
+      trailing: Switch(
+        value: value,
+        onChanged: onChanged,
+        activeColor: Colors.deepPurple,
       ),
     );
   }
