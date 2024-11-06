@@ -6,18 +6,30 @@ import 'package:fluttertoast/fluttertoast.dart';
 class CustomUser {
   final String uid;
 
-  CustomUser({required this.uid});
+  CustomUser({required this.uid, String? email});
+
+  get email => null;
 }
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
-  CustomUser? _userFromFirebaseUser(UserCredential userCredential) {
-    User? user = userCredential.user;
-    return user != null ? CustomUser(uid: user.uid) : null;
+  CustomUser? _userFromFirebaseUser(User? user) {
+    if (user == null) {
+      return null;
+    }
+    return CustomUser(uid: user.uid, email: user.email);
   }
 
+  Stream<CustomUser?> get user {
+    return _auth.authStateChanges().map(_userFromFirebaseUser);
+  }
+
+
+  // Stream<CustomUser?> get user {
+  //   return _auth.authStateChanges().map(_userFromFirebaseUser as CustomUser? Function(User? event));
+  // }
   // register with email & password
   Future<void> registerWithEmailAndPassword(BuildContext context, String email, String password) async {
     try {
@@ -68,6 +80,15 @@ class AuthService {
       User? user = result.user;
       await Future.delayed(Duration(seconds: 1));
 
+      Fluttertoast.showToast(
+          msg: "Login successful",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
       Navigator.pushNamed(context, AppRoutes.home);
     }on FirebaseAuthException catch (error) {
       String message =error.code;
@@ -101,4 +122,10 @@ class AuthService {
       return null;
     }
   }
+
+  bool isLoggedIn() {
+    return _auth.currentUser != null;
+  }
+
+
 }
