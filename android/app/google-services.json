@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "958467003215",
+    "project_id": "didi-clone-98701",
+    "storage_bucket": "didi-clone-98701.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958467003215:android:eaaceb785213a3a32d2b3a",
+        "android_client_info": {
+          "package_name": "com.example.didi_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1dEETHdCcvL4jgLUf2wUeTHYoBJHUOOY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
