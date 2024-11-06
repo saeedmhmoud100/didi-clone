@@ -1,5 +1,6 @@
 import 'package:didi_clone/app_routes.dart';
 import 'package:didi_clone/components/sidebar.dart';
+import 'package:didi_clone/firebase/auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -94,7 +95,11 @@ class LoginPage extends StatelessWidget {
               // Login Button
               ElevatedButton(
                 onPressed: () {
-                  // Add login functionality here
+                  AuthService().signInWithEmailAndPassword(
+                    context,
+                    emailController.text,
+                    passwordController.text,
+                  );
                 },
                 child: Text("Login"),
                 style: ElevatedButton.styleFrom(

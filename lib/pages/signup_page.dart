@@ -1,6 +1,8 @@
 import 'package:didi_clone/app_routes.dart';
 import 'package:didi_clone/components/sidebar.dart';
+import 'package:didi_clone/firebase/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignupPage extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
@@ -108,7 +110,20 @@ class SignupPage extends StatelessWidget {
               // Sign Up Button
               ElevatedButton(
                 onPressed: () {
-                  // Add signup functionality here
+                  if(passwordController.text != confirmPasswordController.text) {
+
+                    Fluttertoast.showToast(
+                      msg: "Passwords do not match",
+                      toastLength: Toast.LENGTH_LONG,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                    );
+                    return;
+                  }
+                  AuthService().registerWithEmailAndPassword(context,emailController.text, passwordController.text);
                 },
                 child: Text("Sign Up"),
                 style: ElevatedButton.styleFrom(
