@@ -5,12 +5,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class CustomUser {
   final String uid;
+  final String? email;
+  // final String? username;
 
-  CustomUser({required this.uid, String? email});
-
-  get email => null;
+  CustomUser({required this.uid, this.email});
 }
-
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -36,6 +35,12 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
 
+      if (user != null) {
+        // await user.updateDisplayName(username);
+        await user.reload();
+        user = _auth.currentUser;
+      }
+
       await Future.delayed(Duration(seconds: 1));
 
       Navigator.pushNamed(context, AppRoutes.login);
@@ -50,10 +55,10 @@ class AuthService {
           fontSize: 16.0
       );
     } on FirebaseAuthException catch (error) {
-      String message =error.code;
-      if(error.code == 'email-already-in-use'){
+      String message = error.code;
+      if (error.code == 'email-already-in-use') {
         message = 'The account already exists for that email.';
-      }else if(error.code == 'weak-password'){
+      } else if (error.code == 'weak-password') {
         message = 'The password provided is too weak.';
       }
 
@@ -66,8 +71,7 @@ class AuthService {
           textColor: Colors.white,
           fontSize: 16.0
       );
-    }
-    catch (error) {
+    } catch (error) {
       print(error.toString());
       return null;
     }
@@ -89,7 +93,7 @@ class AuthService {
           textColor: Colors.white,
           fontSize: 16.0
       );
-      Navigator.pushNamed(context, AppRoutes.home);
+      Navigator.pushReplacementNamed(context, AppRoutes.home);
     }on FirebaseAuthException catch (error) {
       String message =error.code;
       if(error.code == 'user-not-found'){

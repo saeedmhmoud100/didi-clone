@@ -53,17 +53,17 @@ class SignupPage extends StatelessWidget {
               SizedBox(height: 40),
 
               // Name Field
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(
-                  labelText: 'Full Name',
-                  prefixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
+              // TextField(
+              //   controller: nameController,
+              //   decoration: InputDecoration(
+              //     labelText: 'Full Name',
+              //     prefixIcon: Icon(Icons.person),
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: 20),
 
               // Email Field
               TextField(
@@ -123,8 +123,12 @@ class SignupPage extends StatelessWidget {
                     );
                     return;
                   }
-                  AuthService().registerWithEmailAndPassword(context,emailController.text, passwordController.text);
-                },
+                  AuthService().registerWithEmailAndPassword(
+                      context,
+                      emailController.text,
+                      passwordController.text
+                  );
+                  },
                 child: Text("Sign Up"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple,

@@ -15,12 +15,12 @@ class Sidebar extends StatelessWidget {
               final user = snapshot.data;
               final isLoggedIn = user != null;
               return UserAccountsDrawerHeader(
-                accountName: Text(isLoggedIn ? "Account Name" : "Guest Name"),
+                // accountName: Text(isLoggedIn ? (user!.username ?? "No Username") : "Guest Name"),
                 accountEmail: Text(isLoggedIn ? (user!.email ?? "No Email") : "Guest Email"),
                 currentAccountPicture: CircleAvatar(
                   backgroundColor: Colors.white,
                   child: Text("A"),
-                ),
+                ), accountName: null,
               );
             },
           ),
