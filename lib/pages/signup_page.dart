@@ -14,15 +14,11 @@ class SignupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Sidebar(),
-      // appBar: AppBar(
-      //   title: Text('Signup Page'),
-      //   leading: IconButton(
-      //     icon: Icon(Icons.menu),
-      //     onPressed: () {
-      //       Scaffold.of(context).openDrawer();
-      //     },
-      //   ),
-      // ),
+      appBar: AppBar(
+        title: Text('Login Page'),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
+      ),
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
