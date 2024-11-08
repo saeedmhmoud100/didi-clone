@@ -1,3 +1,5 @@
+import 'package:didi_clone/firebase/auth.dart';
+import 'package:didi_clone/pages/Not_found_page.dart';
 import 'package:didi_clone/pages/drive_with_us_page.dart';
 import 'package:didi_clone/pages/favorite_places_page.dart';
 import 'package:didi_clone/pages/help_page.dart';
@@ -33,6 +35,9 @@ class AppRoutes{
   static const String myTrips = '/my-trips';
 
   static Route<dynamic> onGenerateRoute(RouteSettings paths) {
+    Stream<CustomUser?> user = AuthService().user;
+
+
     switch (paths.name) {
       case home:
         return MaterialPageRoute(builder: (_) => HomePage());
@@ -63,7 +68,7 @@ class AppRoutes{
       case myTrips:
         return MaterialPageRoute(builder: (_) => MyTripsPage());
       default:
-        return MaterialPageRoute(builder: (_) => LoginPage());
+        return MaterialPageRoute(builder: (_) => NotFoundPage());
     }
   }
 
