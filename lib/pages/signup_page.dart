@@ -1,14 +1,22 @@
 import 'package:didi_clone/app_routes.dart';
+import 'package:didi_clone/components/loadingButton.dart';
 import 'package:didi_clone/components/sidebar.dart';
 import 'package:didi_clone/firebase/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
+  @override
+  _SignupPageState createState() => _SignupPageState();
+}
+
+
+class _SignupPageState extends State<SignupPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -103,11 +111,15 @@ class SignupPage extends StatelessWidget {
               ),
               SizedBox(height: 30),
 
-              // Sign Up Button
-              ElevatedButton(
-                onPressed: () {
-                  if(passwordController.text != confirmPasswordController.text) {
 
+              // Sign Up Button or Loading Indicator
+              _isLoading ? Loading() :
+              ElevatedButton(
+                onPressed: () async {
+                  setState(() {
+                    _isLoading = true;
+                  });
+                  if(passwordController.text != confirmPasswordController.text) {
                     Fluttertoast.showToast(
                       msg: "Passwords do not match",
                       toastLength: Toast.LENGTH_LONG,
@@ -119,38 +131,41 @@ class SignupPage extends StatelessWidget {
                     );
                     return;
                   }
-                  AuthService().registerWithEmailAndPassword(
+                  await AuthService().registerWithEmailAndPassword(
                       context,
                       emailController.text,
                       passwordController.text
                   );
+                  setState(() {
+                    _isLoading = false;
+                  });
                   },
-                child: Text("Sign Up"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple,
-                  padding: EdgeInsets.symmetric(vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 foregroundColor: Colors.white,
                 ),
+                child: Text("Sign Up"),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Already have an account? Login
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Already have an account?"),
+                  const Text("Already have an account?"),
                   TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, AppRoutes.login);
                     },
-                    child: Text(
+                    child: const Text(
                       'Login',
                       style: TextStyle(color: Colors.deepPurple),
                     ),

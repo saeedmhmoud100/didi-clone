@@ -1,12 +1,20 @@
 import 'package:didi_clone/app_routes.dart';
+import 'package:didi_clone/components/loadingButton.dart';
 import 'package:didi_clone/components/sidebar.dart';
 import 'package:didi_clone/firebase/auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPage createState() => _LoginPage();
+}
+
+
+class _LoginPage extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,14 +96,23 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
 
-              // Login Button
+              // Login Button or Loading
+              _isLoading
+                  ? Loading()
+                  :
               ElevatedButton(
-                onPressed: () {
-                  AuthService().signInWithEmailAndPassword(
+                onPressed: () async {
+                  setState(() {
+                    _isLoading = true;
+                  });
+                  await AuthService().signInWithEmailAndPassword(
                     context,
                     emailController.text,
                     passwordController.text,
                   );
+                  setState(() {
+                    _isLoading = false;
+                  });
                 },
                 child: Text("Login"),
                 style: ElevatedButton.styleFrom(
