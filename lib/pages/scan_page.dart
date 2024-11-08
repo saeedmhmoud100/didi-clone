@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ScanPage extends StatelessWidget {
@@ -8,7 +7,7 @@ class ScanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Scan'),
+        title: const Text('Scan'),
       ),
       body: const Center(
         child: Text('Scan Page'),

@@ -25,36 +25,38 @@ class FavoritePlacesPage extends StatelessWidget {
     // Add more favorite places here
   ];
 
+  FavoritePlacesPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Favorite Places"),
+        title: const Text("Favorite Places"),
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Section: Header
-            Text(
+            const Text(
               "Your Favorite Places",
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               "Explore the places you love and save them for easy access.",
               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Section: Favorite Places List
             ListView.builder(
               itemCount: favoritePlaces.length,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return _buildFavoritePlaceCard(favoritePlaces[index]);
               },
@@ -69,7 +71,7 @@ class FavoritePlacesPage extends StatelessWidget {
   Widget _buildFavoritePlaceCard(Map<String, String> place) {
     return Card(
       elevation: 2,
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -85,7 +87,7 @@ class FavoritePlacesPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
 
             // Place Details
             Expanded(
@@ -94,9 +96,9 @@ class FavoritePlacesPage extends StatelessWidget {
                 children: [
                   Text(
                     place["name"]!,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     place["location"]!,
                     style: TextStyle(fontSize: 16, color: Colors.grey[600]),
@@ -104,11 +106,11 @@ class FavoritePlacesPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
 
             // Remove from favorites button
             IconButton(
-              icon: Icon(Icons.delete, color: Colors.red),
+              icon: const Icon(Icons.delete, color: Colors.red),
               onPressed: () {
                 // Add functionality to remove place from favorites
               },

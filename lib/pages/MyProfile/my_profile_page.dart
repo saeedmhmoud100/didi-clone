@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 
 class MyProfilePage extends StatelessWidget {
+  const MyProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: const Text("Profile"),
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
       ),
       body: ListView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         children: [
           // Profile Section
           _buildProfileHeader(),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           // Account and Settings Sections
           _buildAccountSection(),
           _buildSettingsSection(),
@@ -27,12 +29,12 @@ class MyProfilePage extends StatelessWidget {
   // 1. Profile Header
   Widget _buildProfileHeader() {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.deepPurple[100],
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Row(
+      child: const Row(
         children: [
           CircleAvatar(
             radius: 40,
@@ -65,30 +67,30 @@ class MyProfilePage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0),
           child: Text("Account", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         ),
         ListTile(
-          leading: Icon(Icons.credit_card),
-          title: Text("Payment Methods"),
-          trailing: Icon(Icons.arrow_forward_ios),
+          leading: const Icon(Icons.credit_card),
+          title: const Text("Payment Methods"),
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             // Navigate to Payment Methods
           },
         ),
         ListTile(
-          leading: Icon(Icons.location_on),
-          title: Text("Address Book"),
-          trailing: Icon(Icons.arrow_forward_ios),
+          leading: const Icon(Icons.location_on),
+          title: const Text("Address Book"),
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             // Navigate to Address Book
           },
         ),
         ListTile(
-          leading: Icon(Icons.history),
-          title: Text("Ride History"),
-          trailing: Icon(Icons.arrow_forward_ios),
+          leading: const Icon(Icons.history),
+          title: const Text("Ride History"),
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             // Navigate to Ride History
           },
@@ -102,30 +104,30 @@ class MyProfilePage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0),
           child: Text("Settings", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         ),
         ListTile(
-          leading: Icon(Icons.notifications),
-          title: Text("Notifications"),
-          trailing: Icon(Icons.arrow_forward_ios),
+          leading: const Icon(Icons.notifications),
+          title: const Text("Notifications"),
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             // Navigate to Notifications Settings
           },
         ),
         ListTile(
-          leading: Icon(Icons.privacy_tip),
-          title: Text("Privacy"),
-          trailing: Icon(Icons.arrow_forward_ios),
+          leading: const Icon(Icons.privacy_tip),
+          title: const Text("Privacy"),
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             // Navigate to Privacy Settings
           },
         ),
         ListTile(
-          leading: Icon(Icons.security),
-          title: Text("Security"),
-          trailing: Icon(Icons.arrow_forward_ios),
+          leading: const Icon(Icons.security),
+          title: const Text("Security"),
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             // Navigate to Security Settings
           },
@@ -139,30 +141,30 @@ class MyProfilePage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0),
           child: Text("Help", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         ),
         ListTile(
-          leading: Icon(Icons.help_outline),
-          title: Text("FAQs"),
-          trailing: Icon(Icons.arrow_forward_ios),
+          leading: const Icon(Icons.help_outline),
+          title: const Text("FAQs"),
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             // Navigate to FAQs
           },
         ),
         ListTile(
-          leading: Icon(Icons.contact_support),
-          title: Text("Contact Support"),
-          trailing: Icon(Icons.arrow_forward_ios),
+          leading: const Icon(Icons.contact_support),
+          title: const Text("Contact Support"),
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             // Navigate to Contact Support
           },
         ),
         ListTile(
-          leading: Icon(Icons.info_outline),
-          title: Text("About Us"),
-          trailing: Icon(Icons.arrow_forward_ios),
+          leading: const Icon(Icons.info_outline),
+          title: const Text("About Us"),
+          trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
             // Navigate to About Us
           },

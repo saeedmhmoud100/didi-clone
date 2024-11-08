@@ -25,36 +25,38 @@ class MyTripsPage extends StatelessWidget {
     // Add more trips here
   ];
 
+  MyTripsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Trips"),
+        title: const Text("My Trips"),
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Section: Header
-            Text(
+            const Text(
               "Your Trip History",
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               "View your past, upcoming, and canceled trips.",
               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Section: Trips List
             ListView.builder(
               itemCount: trips.length,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return _buildTripCard(trips[index]);
               },
@@ -69,7 +71,7 @@ class MyTripsPage extends StatelessWidget {
   Widget _buildTripCard(Map<String, String> trip) {
     return Card(
       elevation: 2,
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -79,15 +81,15 @@ class MyTripsPage extends StatelessWidget {
             // Trip Destination
             Text(
               trip["destination"] ?? "",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             // Trip Date
             Text(
               trip["date"] ?? "",
               style: TextStyle(fontSize: 16, color: Colors.grey[700]),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             // Trip Status
             Text(
               trip["status"] ?? "",
@@ -100,7 +102,7 @@ class MyTripsPage extends StatelessWidget {
                     : Colors.orange,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             // Action Buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -109,16 +111,16 @@ class MyTripsPage extends StatelessWidget {
                   onPressed: () {
                     // Add functionality to view trip details
                   },
-                  child: Text("View Details"),
+                  child: const Text("View Details"),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 if (trip["status"] == "Upcoming")
                   TextButton(
                     onPressed: () {
                       // Add functionality to cancel the trip
                     },
-                    child: Text("Cancel Trip"),
                     style: TextButton.styleFrom(foregroundColor: Colors.red),
+                    child: const Text("Cancel Trip"),
                   ),
               ],
             ),

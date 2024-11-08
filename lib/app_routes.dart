@@ -14,7 +14,6 @@ import 'package:didi_clone/pages/promotions_page.dart';
 import 'package:didi_clone/pages/scan_page.dart';
 import 'package:didi_clone/pages/settings_page.dart';
 import 'package:didi_clone/pages/signup_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -40,27 +39,27 @@ class AppRoutes{
 
     switch (paths.name) {
       case home:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => const HomePage());
       case login:
-        return MaterialPageRoute(builder: (_) => LoginPage());
+        return MaterialPageRoute(builder: (_) => const LoginPage());
       case signUp:
-        return MaterialPageRoute(builder: (_) => SignupPage());
+        return MaterialPageRoute(builder: (_) => const SignupPage());
       case payment:
-        return MaterialPageRoute(builder: (_) => PaymentPage());
+        return MaterialPageRoute(builder: (_) => const PaymentPage());
       case help:
-        return MaterialPageRoute(builder: (_) => HelpPage());
+        return MaterialPageRoute(builder: (_) => const HelpPage());
       case messages:
-        return MaterialPageRoute(builder: (_) => MessagesPage());
+        return MaterialPageRoute(builder: (_) => const MessagesPage());
       case settings:
-        return MaterialPageRoute(builder: (_) => SettingsPage());
+        return MaterialPageRoute(builder: (_) => const SettingsPage());
       case inviteFriends:
-        return MaterialPageRoute(builder: (_) => InviteFriendsPage());
+        return MaterialPageRoute(builder: (_) => const InviteFriendsPage());
       case driveWithUs:
-        return MaterialPageRoute(builder: (_) => DriveWithUsPage());
+        return MaterialPageRoute(builder: (_) => const DriveWithUsPage());
       case promotions:
         return MaterialPageRoute(builder: (_) => PromotionsPage());
       case scan:
-        return MaterialPageRoute(builder: (_) => ScanPage());
+        return MaterialPageRoute(builder: (_) => const ScanPage());
       case favoritePlaces:
         return MaterialPageRoute(builder: (_) => FavoritePlacesPage());
       case profile:
@@ -68,7 +67,7 @@ class AppRoutes{
       case myTrips:
         return MaterialPageRoute(builder: (_) => MyTripsPage());
       default:
-        return MaterialPageRoute(builder: (_) => NotFoundPage());
+        return MaterialPageRoute(builder: (_) => const NotFoundPage());
     }
   }
 

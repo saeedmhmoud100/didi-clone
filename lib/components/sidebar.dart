@@ -1,9 +1,10 @@
 import 'package:didi_clone/app_routes.dart';
 import 'package:didi_clone/firebase/auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Sidebar extends StatelessWidget {
+  const Sidebar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -16,8 +17,8 @@ class Sidebar extends StatelessWidget {
               final isLoggedIn = user != null;
               return UserAccountsDrawerHeader(
                 // accountName: Text(isLoggedIn ? (user!.username ?? "No Username") : "Guest Name"),
-                accountEmail: Text(isLoggedIn ? (user!.email ?? "No Email") : "Guest Email"),
-                currentAccountPicture: CircleAvatar(
+                accountEmail: Text(isLoggedIn ? (user.email ?? "No Email") : "Guest Email"),
+                currentAccountPicture: const CircleAvatar(
                   backgroundColor: Colors.white,
                   child: Text("A"),
                 ), accountName: null,
@@ -26,80 +27,80 @@ class Sidebar extends StatelessWidget {
           ),
           if (AuthService().isLoggedIn()) ...[
             ListTile(
-              leading: Icon(Icons.pages),
-              title: Text('My Trips'),
+              leading: const Icon(Icons.pages),
+              title: const Text('My Trips'),
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.myTrips);
               },
             ),
             ListTile(
-              leading: Icon(Icons.payment),
-              title: Text('Payment'),
+              leading: const Icon(Icons.payment),
+              title: const Text('Payment'),
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.payment);
               },
             ),
             ListTile(
-              leading: Icon(Icons.message),
-              title: Text('Messages'),
+              leading: const Icon(Icons.message),
+              title: const Text('Messages'),
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.messages);
               },
             ),
             ListTile(
-              leading: Icon(Icons.insert_invitation),
-              title: Text('Invite Friends'),
+              leading: const Icon(Icons.insert_invitation),
+              title: const Text('Invite Friends'),
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.inviteFriends);
               },
             ),
             ListTile(
-              leading: Icon(Icons.drive_eta),
-              title: Text('Drive With Us'),
+              leading: const Icon(Icons.drive_eta),
+              title: const Text('Drive With Us'),
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.driveWithUs);
               },
             ),
             ListTile(
-              leading: Icon(Icons.discount),
-              title: Text('Promotions'),
+              leading: const Icon(Icons.discount),
+              title: const Text('Promotions'),
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.promotions);
               },
             ),
             ListTile(
-              leading: Icon(Icons.scanner),
-              title: Text('Scan'),
+              leading: const Icon(Icons.scanner),
+              title: const Text('Scan'),
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.scan);
               },
             ),
             ListTile(
-              leading: Icon(Icons.favorite),
-              title: Text('Favorite Places'),
+              leading: const Icon(Icons.favorite),
+              title: const Text('Favorite Places'),
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.favoritePlaces);
               },
             ),
           ],
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.settings);
             },
           ),
           ListTile(
-            leading: Icon(Icons.help),
-            title: Text('Help'),
+            leading: const Icon(Icons.help),
+            title: const Text('Help'),
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.help);
             },
           ),
           if (AuthService().isLoggedIn()) ...[
             ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
               onTap: () {
                 AuthService().signOut();
                 Navigator.pushNamed(context, AppRoutes.login);
@@ -109,15 +110,15 @@ class Sidebar extends StatelessWidget {
 
           if(!AuthService().isLoggedIn()) ...[
             ListTile(
-              leading: Icon(Icons.login),
-              title: Text('Login'),
+              leading: const Icon(Icons.login),
+              title: const Text('Login'),
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.login);
               },
             ),
             ListTile(
-              leading: Icon(Icons.person_add),
-              title: Text('Sign Up'),
+              leading: const Icon(Icons.person_add),
+              title: const Text('Sign Up'),
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.signUp);
               },

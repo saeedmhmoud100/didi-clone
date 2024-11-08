@@ -5,6 +5,7 @@ import 'package:didi_clone/pages/home_page.dart';
 import 'package:didi_clone/pages/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
@@ -16,6 +17,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
+  // DependencyInjection().init();
 }
 
 
@@ -25,7 +27,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<CustomUser?>(context);
     if (user == null) {
-      return LoginPage();
+      return const LoginPage();
     } else {
       return  Scaffold(
         appBar: AppBar(
@@ -33,27 +35,27 @@ class Wrapper extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.deepPurple,
         ),
-        body:  HomePage(),
-        drawer:  Sidebar(),  // Add a drawer to the app
+        body:  const HomePage(),
+        drawer:  const Sidebar(),  // Add a drawer to the app
       );
     }
   }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return StreamProvider<CustomUser?>.value(value: AuthService().user,
         initialData: null,
-        child: MaterialApp(
+        child: GetMaterialApp(
           title: 'Flutter App',
           theme: ThemeData(
             primarySwatch: Colors.orange,
           ),
           initialRoute: '/',  // Set the initial route as '/'
           onGenerateRoute: AppRoutes.onGenerateRoute,  // Use the routes defined in AppRoutes
-          home: Wrapper(),
+          home: const Wrapper(),
         ),
     );
   }

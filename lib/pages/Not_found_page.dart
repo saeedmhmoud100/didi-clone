@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 
 class NotFoundPage extends StatelessWidget {
+  const NotFoundPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Page Not Found'),
+        title: const Text('Page Not Found'),
         backgroundColor: Colors.deepPurple,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.error_outline,
               color: Colors.deepPurple,
               size: 80,
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               "404",
               style: TextStyle(
                 fontSize: 48,
@@ -26,22 +28,22 @@ class NotFoundPage extends StatelessWidget {
                 color: Colors.deepPurple,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               "Oops! Page not found.",
               style: TextStyle(fontSize: 18, color: Colors.grey[600]),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepPurple,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 foregroundColor: Colors.white,
               ),
-              child: Text(
+              child: const Text(
                 "Go Back",
                 style: TextStyle(fontSize: 16),
               ),

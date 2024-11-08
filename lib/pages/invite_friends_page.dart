@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 
 class InviteFriendsPage extends StatelessWidget {
+  const InviteFriendsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Invite Friends"),
+        title: const Text("Invite Friends"),
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Section: Header
-            Text(
+            const Text(
               "Invite Your Friends",
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               "Share the app with your friends and earn rewards!",
               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Section: Invite Options
             _buildInviteOption(
@@ -74,13 +76,13 @@ class InviteFriendsPage extends StatelessWidget {
   }) {
     return Card(
       elevation: 2,
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         leading: Icon(icon, color: Colors.deepPurple),
-        title: Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        title: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         subtitle: Text(subtitle, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
-        trailing: Icon(Icons.arrow_forward_ios, size: 16),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
         onTap: onTap,
       ),
     );

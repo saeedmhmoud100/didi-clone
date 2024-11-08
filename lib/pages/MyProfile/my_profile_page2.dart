@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 
 class MyProfilePage2 extends StatelessWidget {
+  const MyProfilePage2({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text("Profile"),
+        title: const Text("Profile"),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.orange[800],
       ),
       body: ListView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         children: [
           // Profile Picture and User Info
           Container(
-            padding: EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -25,7 +27,7 @@ class MyProfilePage2 extends StatelessWidget {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 2,
                   blurRadius: 8,
-                  offset: Offset(0, 3),
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
@@ -35,7 +37,7 @@ class MyProfilePage2 extends StatelessWidget {
                   radius: 50,
                   backgroundImage: NetworkImage('https://example.com/user_profile_pic.jpg'),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 const Text(
                   "John Doe",
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -45,11 +47,11 @@ class MyProfilePage2 extends StatelessWidget {
                   "johndoe@example.com",
                   style: TextStyle(color: Colors.grey[600]),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton.icon(
                   onPressed: () {},
-                  icon: Icon(Icons.edit, color: Colors.white),
-                  label: Text("Edit Profile"),
+                  icon: const Icon(Icons.edit, color: Colors.white),
+                  label: const Text("Edit Profile"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange[800],
                     shape: RoundedRectangleBorder(
@@ -61,7 +63,7 @@ class MyProfilePage2 extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
 
           // Menu Options
           _buildMenuOption(
@@ -98,7 +100,7 @@ class MyProfilePage2 extends StatelessWidget {
   Widget _buildMenuOption({required IconData icon, required String title, required VoidCallback onTap}) {
     return Card(
       elevation: 2,
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -106,9 +108,9 @@ class MyProfilePage2 extends StatelessWidget {
         leading: Icon(icon, color: Colors.orange[800]),
         title: Text(
           title,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
-        trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey),
+        trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
         onTap: onTap,
       ),
     );

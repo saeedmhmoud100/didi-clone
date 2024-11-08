@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
+
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
@@ -13,21 +15,21 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings"),
+        title: const Text("Settings"),
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Section: Profile Settings
-            Text(
+            const Text(
               "Profile Settings",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             _buildSettingOption(
               title: "Change Profile Picture",
               icon: Icons.account_circle,
@@ -42,14 +44,14 @@ class _SettingsPageState extends State<SettingsPage> {
                 // Add functionality to edit profile
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Section: Preferences
-            Text(
+            const Text(
               "Preferences",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             _buildSwitchOption(
               title: "Enable Notifications",
               value: _notificationsEnabled,
@@ -68,14 +70,14 @@ class _SettingsPageState extends State<SettingsPage> {
                 });
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Section: Account Settings
-            Text(
+            const Text(
               "Account Settings",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             _buildSettingOption(
               title: "Change Password",
               icon: Icons.lock,
@@ -90,7 +92,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 // Add functionality to logout
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -101,8 +103,8 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget _buildSettingOption({required String title, required IconData icon, required VoidCallback onTap}) {
     return ListTile(
       leading: Icon(icon, color: Colors.deepPurple),
-      title: Text(title, style: TextStyle(fontSize: 18)),
-      trailing: Icon(Icons.arrow_forward_ios, size: 16),
+      title: Text(title, style: const TextStyle(fontSize: 18)),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
       onTap: onTap,
     );
   }
@@ -110,7 +112,7 @@ class _SettingsPageState extends State<SettingsPage> {
   // Widget to build a switch option (enable/disable setting)
   Widget _buildSwitchOption({required String title, required bool value, required ValueChanged<bool> onChanged}) {
     return ListTile(
-      title: Text(title, style: TextStyle(fontSize: 18)),
+      title: Text(title, style: const TextStyle(fontSize: 18)),
       trailing: Switch(
         value: value,
         onChanged: onChanged,

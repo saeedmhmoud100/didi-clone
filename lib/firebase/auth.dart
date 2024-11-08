@@ -41,7 +41,7 @@ class AuthService {
         user = _auth.currentUser;
       }
 
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
       Navigator.pushNamed(context, AppRoutes.login);
 
@@ -73,7 +73,7 @@ class AuthService {
       );
     } catch (error) {
       print(error.toString());
-      return null;
+      return;
     }
   }
 
@@ -82,7 +82,7 @@ class AuthService {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
       Fluttertoast.showToast(
           msg: "Login successful",
@@ -113,7 +113,7 @@ class AuthService {
       );
     }catch (error) {
       print(error.toString());
-      return null;
+      return;
     }
   }
 

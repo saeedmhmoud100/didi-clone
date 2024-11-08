@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPage createState() => _LoginPage();
 }
@@ -18,22 +20,22 @@ class _LoginPage extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Sidebar(),
+      drawer: const Sidebar(),
       appBar: AppBar(
-        title: Text('Login Page'),
+        title: const Text('Login Page'),
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
       ),
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Logo or App Name
-              Text(
+              const Text(
                 "Welcome Back!",
                 style: TextStyle(
                   fontSize: 32,
@@ -42,7 +44,7 @@ class _LoginPage extends State<LoginPage> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 "Login to your account",
                 style: TextStyle(
@@ -51,7 +53,7 @@ class _LoginPage extends State<LoginPage> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
 
               // Email Field
               TextField(
@@ -59,13 +61,13 @@ class _LoginPage extends State<LoginPage> {
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  prefixIcon: Icon(Icons.email),
+                  prefixIcon: const Icon(Icons.email),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Password Field
               TextField(
@@ -73,13 +75,13 @@ class _LoginPage extends State<LoginPage> {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: const Icon(Icons.lock),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               // Forgot Password
               Align(
@@ -88,17 +90,17 @@ class _LoginPage extends State<LoginPage> {
                   onPressed: () {
                     // Add Forgot Password logic here
                   },
-                  child: Text(
+                  child: const Text(
                     'Forgot Password?',
                     style: TextStyle(color: Colors.deepPurple),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Login Button or Loading
               _isLoading
-                  ? Loading()
+                  ? const Loading()
                   :
               ElevatedButton(
                 onPressed: () async {
@@ -114,33 +116,33 @@ class _LoginPage extends State<LoginPage> {
                     _isLoading = false;
                   });
                 },
-                child: Text("Login"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple,
-                  padding: EdgeInsets.symmetric(vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
 
                   ),
                   foregroundColor: Colors.white,
                 ),
+                child: const Text("Login"),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Sign Up Option
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an account?"),
+                  const Text("Don't have an account?"),
                   TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, AppRoutes.signUp);
                     },
-                    child: Text(
+                    child: const Text(
                       'Sign Up',
                       style: TextStyle(color: Colors.deepPurple),
                     ),
