@@ -1,6 +1,9 @@
+import 'package:didi_clone/components/loadingButton.dart';
 import 'package:didi_clone/firebase/PaymentServecis.dart';
 import 'package:didi_clone/firebase/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:random_string/random_string.dart';
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});
@@ -62,6 +65,7 @@ class __AddPaymentMethodState extends State<_AddPaymentMethod> {
   final TextEditingController expiryDateController = TextEditingController();
   final TextEditingController cvvController = TextEditingController();
   final TextEditingController cardHolderNameController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -122,17 +126,54 @@ class __AddPaymentMethodState extends State<_AddPaymentMethod> {
               ),
             ),
           ),
+
           const SizedBox(height: 25),
+          _isLoading ? const Loading() :
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+
+              if(cardNumberController.text.isEmpty || expiryDateController.text.isEmpty || cvvController.text.isEmpty || cardHolderNameController.text.isEmpty){
+                Fluttertoast.showToast(
+                    msg: "Please fill all the fields",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.yellow[900],
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
+                return;
+              }
+
               Map<String, dynamic> m= {
+                "userId": CustomUser(uid: '').uid,
+                "card_number": cardNumberController.text,
+                "expiry_day": expiryDateController.text,
+                "cvv": cvvController.text,
+                "holder_name": cardHolderNameController.text,
+              };
+
+              setState(() {
+                _isLoading = true;
+              });
+
+              bool b =await PaymentServices.addNewCard({
+                "userId": CustomUser(uid: '').uid,
                 "cardNumber": cardNumberController.text,
                 "expiryDate": expiryDateController.text,
                 "cvv": cvvController.text,
                 "cardHolderName": cardHolderNameController.text,
-              };
+              }, randomAlphaNumeric(20));
+              setState(() {
+                _isLoading = false;
+              });
 
-              PaymentServices.addNewCard(m,AuthService().user.uid);
+              if(b){
+                cardNumberController.clear();
+                expiryDateController.clear();
+                cvvController.clear();
+                cardHolderNameController.clear();
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.deepPurple,
