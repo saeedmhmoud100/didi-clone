@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:didi_clone/components/loadingButton.dart';
 import 'package:didi_clone/firebase/PaymentServecis.dart';
 import 'package:didi_clone/firebase/auth.dart';
@@ -198,29 +199,57 @@ class __AddPaymentMethodState extends State<_AddPaymentMethod> {
   }
 }
 
-extension on Stream<CustomUser?> {
-  String get uid => "";
+
+class _SavedPaymentMethod extends StatefulWidget {
+  @override
+  __SavedPaymentMethodState createState() => __SavedPaymentMethodState();
 }
 
-class _SavedPaymentMethod extends StatelessWidget {
+class __SavedPaymentMethodState extends State<_SavedPaymentMethod> {
+  Future<List<Map<String, dynamic>>> _getSavedCards() async {
+    QuerySnapshot<Map<String, dynamic>> snapshot = await PaymentServices.getCards();
+    return snapshot.docs.map((doc) => doc.data()).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ListTile(
-        leading: const Icon(Icons.credit_card, color: Colors.deepPurple),
-        title: const Text("**** **** **** 1234"),
-        subtitle: const Text("Exp: 12/23"),
-        trailing: IconButton(
-          icon: const Icon(Icons.delete, color: Colors.deepPurple),
-          onPressed: () {
-            // Add delete card functionality here
-          },
-        ),
-      ),
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: _getSavedCards(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: Loading());
+        } else if (snapshot.hasError) {
+          return const Center(child: Text("Error loading cards"));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text("No saved cards"));
+        } else {
+          List<Map<String, dynamic>> cards = snapshot.data!;
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: cards.length,
+            itemBuilder: (context, index) {
+              Map<String, dynamic> card = cards[index];
+              return Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ListTile(
+                  leading: const Icon(Icons.credit_card, color: Colors.deepPurple),
+                  title: Text("**** **** **** ${card['cardNumber']?.substring(card['cardNumber']?.length - 4 ?? 0) ?? '****'}"),
+                  subtitle: Text("Exp: ${card['expiryDate'] ?? 'N/A'}"),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.deepPurple),
+                    onPressed: () {
+                      // Add delete card functionality here
+                    },
+                  ),
+                ),
+              );
+            },
+          );
+        }
+      },
     );
   }
 }

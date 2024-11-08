@@ -34,6 +34,11 @@ class PaymentServices {
 
 
   }
+
+  static Future<QuerySnapshot<Map<String, dynamic>>> getCards() async {
+    return await FirebaseFirestore.instance.collection('paymentCards').get();
+  }
+
   static Future<void> removeCard({required String cardId}) async {
     // Remove card from the user's account
     print("Card Removed Successfully");
