@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:didi_clone/components/loadingButton.dart';
 import 'package:didi_clone/firebase/PaymentServecis.dart';
 import 'package:didi_clone/firebase/auth.dart';
+import 'package:didi_clone/pages/update_payment_card_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:random_string/random_string.dart';
@@ -264,21 +265,40 @@ class __SavedPaymentMethodState extends State<_SavedPaymentMethod> {
                   title: Text(
                       "**** **** **** ${card['cardNumber']?.substring(card['cardNumber']?.length - 4 ?? 0) ?? '****'}"),
                   subtitle: Text("Exp: ${card['expiryDate'] ?? 'N/A'}"),
-                  trailing: isLoading
-                      ? const Loading()
-                      : IconButton(
-                          icon: const Icon(Icons.delete,
-                              color: Colors.deepPurple),
-                          onPressed: () async {
-                            setState(() {
-                              _loadingStates[cardId] = true;
-                            });
-                            await PaymentServices.removeCard(cardId: cardId);
-                            setState(() {
-                              _loadingStates[cardId] = false;
-                            });
-                          },
-                        ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if(isLoading)
+                        Loading()
+                      else
+                           IconButton(
+                        icon: const Icon(Icons.delete,
+                            color: Colors.deepPurple),
+                        onPressed: () async {
+                          setState(() {
+                            _loadingStates[cardId] = true;
+                          });
+                          await PaymentServices.removeCard(cardId: cardId);
+                          setState(() {
+                            _loadingStates[cardId] = false;
+                          });
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.edit,
+                            color: Colors.deepPurple),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => UpdatePaymentCardPage(cardId: cardId, onUpdate: () {
+                              setState(() {});
+                            }),
+                          );
+                        },
+                      ),
+                    ],
+                  )
+
                 ),
               );
             },

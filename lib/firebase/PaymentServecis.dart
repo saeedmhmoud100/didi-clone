@@ -65,4 +65,68 @@ class PaymentServices {
       return false;
     }
   }
+
+  static Future<Map<String, dynamic>?> getCardById(String cardId) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+          .collection('paymentCards')
+          .doc(cardId)
+          .get();
+
+      if (snapshot.exists) {
+        return snapshot.data();
+      } else {
+        Fluttertoast.showToast(
+            msg: "Card not found",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.yellow[900],
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+        return null;
+      }
+    } catch (error) {
+      Fluttertoast.showToast(
+          msg: error.toString(),
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      return null;
+    }
+  }
+
+
+  static Future<bool> updateCard({required String cardId, required Map<String, dynamic> data}) async {
+    try {
+      await FirebaseFirestore.instance.collection('paymentCards').doc(cardId).update(data);
+      Fluttertoast.showToast(
+          msg: "Card Updated Successfully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      return true;
+    } catch (error) {
+      Fluttertoast.showToast(
+          msg: error.toString(),
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      return false;
+    }
+  }
+
 }
