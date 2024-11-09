@@ -6,8 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:random_string/random_string.dart';
 
-class PaymentPage extends StatelessWidget {
+
+class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
+
+  @override
+  _PaymentPageState createState() => _PaymentPageState();
+}
+
+class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class PaymentPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Section: Add New Card
-            _AddPaymentMethod(),
+            _AddPaymentMethod(onCardAdded: _refreshSavedCards),
             const SizedBox(height: 25),
 
             // Section: Saved Payment Methods
@@ -54,9 +61,16 @@ class PaymentPage extends StatelessWidget {
       ),
     );
   }
+  void _refreshSavedCards() {
+    setState(() {});
+  }
 }
 
 class _AddPaymentMethod extends StatefulWidget {
+
+  final VoidCallback onCardAdded;
+  _AddPaymentMethod({required this.onCardAdded});
+
   @override
   __AddPaymentMethodState createState() => __AddPaymentMethodState();
 }
@@ -65,7 +79,9 @@ class __AddPaymentMethodState extends State<_AddPaymentMethod> {
   final TextEditingController cardNumberController = TextEditingController();
   final TextEditingController expiryDateController = TextEditingController();
   final TextEditingController cvvController = TextEditingController();
-  final TextEditingController cardHolderNameController = TextEditingController();
+  final TextEditingController cardHolderNameController =
+      TextEditingController();
+
   bool _isLoading = false;
 
   @override
@@ -127,78 +143,79 @@ class __AddPaymentMethodState extends State<_AddPaymentMethod> {
               ),
             ),
           ),
-
           const SizedBox(height: 25),
-          _isLoading ? const Loading() :
-          ElevatedButton(
-            onPressed: () async {
+          _isLoading
+              ? const Loading()
+              : ElevatedButton(
+                  onPressed: () async {
+                    if (cardNumberController.text.isEmpty ||
+                        expiryDateController.text.isEmpty ||
+                        cvvController.text.isEmpty ||
+                        cardHolderNameController.text.isEmpty) {
+                      Fluttertoast.showToast(
+                          msg: "Please fill all the fields",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.yellow[900],
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                      return;
+                    }
 
-              if(cardNumberController.text.isEmpty || expiryDateController.text.isEmpty || cvvController.text.isEmpty || cardHolderNameController.text.isEmpty){
-                Fluttertoast.showToast(
-                    msg: "Please fill all the fields",
-                    toastLength: Toast.LENGTH_LONG,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.yellow[900],
-                    textColor: Colors.white,
-                    fontSize: 16.0
-                );
-                return;
-              }
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    String cardId = randomAlphaNumeric(20);
+                    bool b = await AuthService()
+                        .user
+                        .firstWhere((user) => user != null)
+                        .then((user) async {
+                      return await PaymentServices.addNewCard({
+                        "cardId": cardId,
+                        "userId": user!.uid,
+                        "cardNumber": cardNumberController.text,
+                        "expiryDate": expiryDateController.text,
+                        "cvv": cvvController.text,
+                        "cardHolderName": cardHolderNameController.text,
+                      }, cardId);
+                    });
 
-              Map<String, dynamic> m= {
-                "userId": CustomUser(uid: '').uid,
-                "card_number": cardNumberController.text,
-                "expiry_day": expiryDateController.text,
-                "cvv": cvvController.text,
-                "holder_name": cardHolderNameController.text,
-              };
+                    setState(() {
+                      _isLoading = false;
+                    });
 
-              setState(() {
-                _isLoading = true;
-              });
-
-              bool b =await PaymentServices.addNewCard({
-                "userId": CustomUser(uid: '').uid,
-                "cardNumber": cardNumberController.text,
-                "expiryDate": expiryDateController.text,
-                "cvv": cvvController.text,
-                "cardHolderName": cardHolderNameController.text,
-              }, randomAlphaNumeric(20));
-              setState(() {
-                _isLoading = false;
-              });
-
-              if(b){
-                cardNumberController.clear();
-                expiryDateController.clear();
-                cvvController.clear();
-                cardHolderNameController.clear();
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.deepPurple,
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              textStyle: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-              foregroundColor: Colors.white,
-            ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text("Save Card", style: TextStyle(color: Colors.white)),
-            ),
-          ),
+                    if (b) {
+                      cardNumberController.clear();
+                      expiryDateController.clear();
+                      cvvController.clear();
+                      cardHolderNameController.clear();
+                      widget.onCardAdded();
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text("Save Card",
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                ),
         ],
       ),
     );
   }
 }
-
 
 class _SavedPaymentMethod extends StatefulWidget {
   @override
@@ -207,9 +224,12 @@ class _SavedPaymentMethod extends StatefulWidget {
 
 class __SavedPaymentMethodState extends State<_SavedPaymentMethod> {
   Future<List<Map<String, dynamic>>> _getSavedCards() async {
-    QuerySnapshot<Map<String, dynamic>> snapshot = await PaymentServices.getCards();
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+        await PaymentServices.getCards();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
+
+  Map<String, bool> _loadingStates = {};
 
   @override
   Widget build(BuildContext context) {
@@ -229,21 +249,36 @@ class __SavedPaymentMethodState extends State<_SavedPaymentMethod> {
             itemCount: cards.length,
             itemBuilder: (context, index) {
               Map<String, dynamic> card = cards[index];
+              String cardId =
+                  card['cardId'];
+              bool isLoading = _loadingStates[cardId] ?? false;
+
               return Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListTile(
-                  leading: const Icon(Icons.credit_card, color: Colors.deepPurple),
-                  title: Text("**** **** **** ${card['cardNumber']?.substring(card['cardNumber']?.length - 4 ?? 0) ?? '****'}"),
+                  leading:
+                      const Icon(Icons.credit_card, color: Colors.deepPurple),
+                  title: Text(
+                      "**** **** **** ${card['cardNumber']?.substring(card['cardNumber']?.length - 4 ?? 0) ?? '****'}"),
                   subtitle: Text("Exp: ${card['expiryDate'] ?? 'N/A'}"),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.deepPurple),
-                    onPressed: () {
-                      // Add delete card functionality here
-                    },
-                  ),
+                  trailing: isLoading
+                      ? const Loading()
+                      : IconButton(
+                          icon: const Icon(Icons.delete,
+                              color: Colors.deepPurple),
+                          onPressed: () async {
+                            setState(() {
+                              _loadingStates[cardId] = true;
+                            });
+                            await PaymentServices.removeCard(cardId: cardId);
+                            setState(() {
+                              _loadingStates[cardId] = false;
+                            });
+                          },
+                        ),
                 ),
               );
             },
@@ -269,7 +304,8 @@ class _PaymentOptions extends StatelessWidget {
         ),
         const Divider(),
         ListTile(
-          leading: const Icon(Icons.account_balance_wallet, color: Colors.deepPurple),
+          leading: const Icon(Icons.account_balance_wallet,
+              color: Colors.deepPurple),
           title: const Text("PayPal"),
           trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
           onTap: () {

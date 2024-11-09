@@ -7,8 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 class PaymentServices {
   static Future<bool> addNewCard(Map<String, dynamic> s,String id) async {
     try {
-      await FirebaseFirestore.instance.collection('paymentCards').doc(id).set(
-          s);
+      await FirebaseFirestore.instance.collection('paymentCards').doc(id).set(s);
       Fluttertoast.showToast(
           msg: "Card Added Successfully",
           toastLength: Toast.LENGTH_LONG,
@@ -39,8 +38,31 @@ class PaymentServices {
     return await FirebaseFirestore.instance.collection('paymentCards').get();
   }
 
-  static Future<void> removeCard({required String cardId}) async {
-    // Remove card from the user's account
-    print("Card Removed Successfully");
+  static Future<bool> removeCard({required String cardId}) async {
+
+    try {
+      await FirebaseFirestore.instance.collection('paymentCards').doc(cardId).delete();
+      Fluttertoast.showToast(
+          msg: "Card Removed Successfully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      return true;
+    } catch (error) {
+      Fluttertoast.showToast(
+          msg: error.toString(),
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      return false;
+    }
   }
 }
