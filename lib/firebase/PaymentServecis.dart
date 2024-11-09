@@ -1,6 +1,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:didi_clone/firebase/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -35,7 +36,12 @@ class PaymentServices {
   }
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getCards() async {
-    return await FirebaseFirestore.instance.collection('paymentCards').get();
+    CustomUser? currentUser = await AuthService().user.first;
+    String userId = currentUser?.uid ?? '';
+    return await FirebaseFirestore.instance
+        .collection('paymentCards')
+        .where('userId', isEqualTo: userId)
+        .get();
   }
 
   static Future<bool> removeCard({required String cardId}) async {
