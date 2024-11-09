@@ -1,3 +1,4 @@
+import 'package:didi_clone/Themes.dart';
 import 'package:didi_clone/app_routes.dart';
 import 'package:didi_clone/firebase/auth.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +19,15 @@ class Sidebar extends StatelessWidget {
               return UserAccountsDrawerHeader(
                 // accountName: Text(isLoggedIn ? (user!.username ?? "No Username") : "Guest Name"),
                 accountEmail: Text(isLoggedIn ? (user.email ?? "No Email") : "Guest Email"),
-                currentAccountPicture: const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Text("A"),
-                ), accountName: null,
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor:AppTheme.darkPrimaryColor, // Light theme color
+                  child: Text(
+                    "A",
+                    style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white // Dark theme color
+                      : Colors.black87),
+                  ),
+                ),accountName: null,
                 decoration: BoxDecoration(
                   color: Colors.deepPurple, // Background color of the header
                 ),

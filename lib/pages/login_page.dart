@@ -26,7 +26,7 @@ class _LoginPage extends State<LoginPage> {
         centerTitle: true,
         backgroundColor: Colors.deepPurple,
       ),
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30),

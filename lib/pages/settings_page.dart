@@ -1,4 +1,6 @@
 import 'package:didi_clone/Themes.dart';
+import 'package:didi_clone/app_routes.dart';
+import 'package:didi_clone/firebase/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -99,6 +101,8 @@ class _SettingsPageState extends State<SettingsPage> {
               icon: Icons.exit_to_app,
               onTap: () {
                 // Add functionality to logout
+                AuthService().signOut();
+                Navigator.pushReplacementNamed(context, AppRoutes.login);
               },
             ),
             const SizedBox(height: 20),
