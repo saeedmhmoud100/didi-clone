@@ -1,4 +1,5 @@
 import 'package:didi_clone/app_routes.dart';
+import 'package:didi_clone/Themes.dart';
 import 'package:didi_clone/components/sidebar.dart';
 import 'package:didi_clone/firebase/auth.dart';
 import 'package:didi_clone/pages/home_page.dart';
@@ -16,7 +17,18 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+        StreamProvider<CustomUser?>.value(
+          value: AuthService().user,
+          initialData: null,
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
   // DependencyInjection().init();
 }
 
@@ -46,17 +58,19 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<CustomUser?>.value(value: AuthService().user,
-        initialData: null,
-        child: MaterialApp(
-          title: 'Flutter App',
-          theme: ThemeData(
-            primarySwatch: Colors.orange,
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return StreamProvider<CustomUser?>.value(value: AuthService().user,
+          initialData: null,
+          child: MaterialApp(
+            title: 'Flutter App',
+            initialRoute: '/',  // Set the initial route as '/'
+            onGenerateRoute: AppRoutes.onGenerateRoute,  // Use the routes defined in AppRoutes
+            theme: themeProvider.theme,
+            home: const Wrapper(),
           ),
-          initialRoute: '/',  // Set the initial route as '/'
-          onGenerateRoute: AppRoutes.onGenerateRoute,  // Use the routes defined in AppRoutes
-          home: const Wrapper(),
-        ),
+        );
+      },
     );
   }
 }

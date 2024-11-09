@@ -1,4 +1,6 @@
+import 'package:didi_clone/Themes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -10,6 +12,12 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   bool _notificationsEnabled = true;
   bool _darkMode = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _darkMode = Provider.of<ThemeProvider>(context, listen: false).theme.brightness == Brightness.dark;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +76,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 setState(() {
                   _darkMode = value;
                 });
+                Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
               },
             ),
             const SizedBox(height: 20),

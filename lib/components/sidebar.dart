@@ -22,6 +22,9 @@ class Sidebar extends StatelessWidget {
                   backgroundColor: Colors.white,
                   child: Text("A"),
                 ), accountName: null,
+                decoration: BoxDecoration(
+                  color: Colors.deepPurple, // Background color of the header
+                ),
               );
             },
           ),
